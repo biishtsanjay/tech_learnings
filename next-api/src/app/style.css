@@ -1,0 +1,30 @@
+.input-field {
+  display: block;
+  margin: 10px;
+  height: 30px;
+  width: 300px;
+  color: red;
+}
+.btn {
+  border: 1px solid white;
+  background-color: blue;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+}
+.add-user {
+  margin-top: 100px;
+  text-align: -webkit-center;
+}
+
+.input {
+  margin: 10px;
+  padding: 10px;
+  width: 200px;
+}
+
+.btn_category {
+  margin: 8px;
+  padding: 8px;
+  background-color: green;
+  width: 10rem;
+}
