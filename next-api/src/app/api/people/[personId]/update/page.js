@@ -14,7 +14,6 @@ export default function Update({ params }) {
       body: JSON.stringify({ name, age, email }),
     });
     result = await result.json();
-    console.log("put res", result);
     if (result.success) {
       alert("success");
     } else {
@@ -26,7 +25,6 @@ export default function Update({ params }) {
   const getUserDetails = async () => {
     let data = await fetch("http://localhost:3000/api/people/" + id);
     data = await data.json();
-    console.log("DT", data);
     setName(data.result.name);
     setAge(data.result.age);
     setEmail(data.result.email);

@@ -1,26 +1,49 @@
 "use client";
-import React, { useState } from "react";
-import "./../style.css";
-const AddProducts = () => {
+import React, { useEffect, useState } from "react";
+import "./../../style.css";
+import Link from "next/link";
+const AddProducts = (props) => {
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [color, setColor] = useState("");
   const [company, setCompany] = useState("");
   const [category, setCategory] = useState("");
-  const handleClick = async () => {
-    let result = await fetch("http://localhost:3000/api/products", {
-      method: "POST",
+
+  const updateProduct = async () => {
+    const product_id = props.params.editproduct;
+    let data = await fetch("http://localhost:3000/api/products/" + product_id, {
+      method: "PUT",
       body: JSON.stringify({ name, price, color, category, company }),
     });
-    result = await result.json();
-    if (result.success) {
-      alert("new product added");
+    data = await data.json();
+    if (data.result) {
+      alert("new product updated");
+    }
+  };
+
+  useEffect(() => {
+    getProductDetail();
+  }, []);
+
+  const getProductDetail = async () => {
+    const product_id = props.params.editproduct;
+    let productData = await fetch(
+      "http://localhost:3000/api/products/" + product_id
+    );
+    productData = await productData.json();
+    if (productData.success) {
+      const result = productData.result;
+      setName(result.name);
+      setCategory(result.category);
+      setPrice(result.price);
+      setColor(result.color);
+      setCompany(result.company);
     }
   };
 
   return (
     <div style={{ width: "50vw", margin: "auto" }}>
-      Add Products
+      Update Product
       <div style={{ display: "flex", flexDirection: "column" }}>
         <input
           value={name}
@@ -57,9 +80,10 @@ const AddProducts = () => {
           placeholder="enter product category"
           className="input"
         />
-        <button className="btn_category" onClick={handleClick}>
-          Add Product
+        <button className="btn_category" onClick={updateProduct}>
+          Update Product
         </button>
+        <Link href="/products">Go Back</Link>
       </div>
     </div>
   );

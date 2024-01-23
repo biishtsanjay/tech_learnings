@@ -1,4 +1,4 @@
-import { connectionSrt } from "@/lib/db";
+import { connectionStr } from "@/lib/db";
 import { Product } from "@/lib/model/product";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
@@ -8,7 +8,7 @@ export async function GET() {
   let data = [];
   let success = true;
   try {
-    await mongoose.connect(connectionSrt);
+    await mongoose.connect(connectionStr);
     data = await Product.find();
   } catch (error) {
     data = { result: "Error RR" };
@@ -18,7 +18,7 @@ export async function GET() {
 }
 
 export async function POST(request) {
-  await mongoose.connect(connectionSrt);
+  await mongoose.connect(connectionStr);
 
   const payload = await request.json();
   let product = new Product(payload);
